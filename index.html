@@ -35,18 +35,18 @@
 		<!-- REACT EXAMPLE USING JSX -->
 		<!-- If you try to return without the parentheses this will trhow an error because otherwise it's trying to return nothing. To fix it the root element (<div> in this case) must be at the same line of the return statement -->
 		<script type="text/jsx">
-			var App = React.createClass({
-				render: function(){
-					return (
-							<div>
-								<h1>Alalalal</h1>
-								<p>Hello</p>
-							</div>
-							)
-				}
-			});
+			// var App = React.createClass({
+			// 	render: function(){
+			// 		return (
+			// 				<div>
+			// 					<h1>Alalalal</h1>
+			// 					<p>Hello</p>
+			// 				</div>
+			// 				)
+			// 	}
+			// });
 
-			React.render(< App/>, document.body);
+			// React.render(< App/>, document.body);
 		</script>
 		<!-- REACT EXAMPLE USING REGULAR JAVASCRIPT (same as example above) -->		
 		<script type="text/jsx">
@@ -62,6 +62,39 @@
 			// });
 
 			// React.render(React.createElement(App), document.body);
+		</script>
+		<!-- Setting the property at the render and displaying -->
+		<script type="text/jsx">
+			var App = React.createClass({
+				// We can define default properties too (this will be overrided if the properties are deifned in the render function )
+				getDefaultProps: function(){
+					return {
+						txt: "I'm been overrided",
+						cat: 0
+					}
+				},
+				// We can specify the type of the properties using the propTypes
+				propTypes: {
+					// Define the property as a string
+					txt: React.PropTypes.string,
+					// Define the property as a number and Required
+					cat: React.PropTypes.number.isRequired
+				},
+				render: function(){
+					var txt = this.props.txt;
+					
+					// If you pass comments inside the return () statement they will be rendered.
+					return (
+							<div>
+								<h1>{txt}</h1>
+							</div>
+							)
+				}
+			});
+
+			// To make the defualr properties appear, remove the property assignament below
+			React.render(<App cat={5} txt = "This is the value of a prop" />, document.body);
+		
 		</script>
 	</body>	
 </html>
