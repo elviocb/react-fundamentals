@@ -23,13 +23,45 @@
 		// React.render(App(), document.body);
 		</script>		
 		<script>
+			// var App = React.createClass({
+			// 	render: function(){
+			// 		return React.createElement("h1", null, "Yo")
+			// 	}
+			// });
+
+			// React.render(React.createElement(App), document.body);
+		</script>	
+
+		<!-- REACT EXAMPLE USING JSX -->
+		<!-- If you try to return without the parentheses this will trhow an error because otherwise it's trying to return nothing. To fix it the root element (<div> in this case) must be at the same line of the return statement -->
+		<script type="text/jsx">
 			var App = React.createClass({
 				render: function(){
-					return React.createElement("h1", null, "Yo")
+					return (
+							<div>
+								<h1>Alalalal</h1>
+								<p>Hello</p>
+							</div>
+							)
 				}
 			});
 
-			React.render(React.createElement(App), document.body);
-		</script>		
+			React.render(< App/>, document.body);
+		</script>
+		<!-- REACT EXAMPLE USING REGULAR JAVASCRIPT (same as example above) -->		
+		<script type="text/jsx">
+			// var App = React.createClass({
+			// 	render: function(){
+			// 		return (
+			// 				React.createElement('div', null,
+			// 					React.createElement('h1', null, 'Alalalal'),
+			// 					React.createElement('p', null, 'Hello')
+			// 				)
+			// 			)
+			// 	}
+			// });
+
+			// React.render(React.createElement(App), document.body);
+		</script>
 	</body>	
 </html>
