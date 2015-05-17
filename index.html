@@ -4,6 +4,7 @@
 		<script src="https://fb.me/JSXTransformer-0.12.2.js"></script>
 	</head>
 	<body>
+		<!--  ///////  PART I ///////  -->
 		<script type="text/jsx">
 		// var App = React.createClass({
 		// 	render: function(){
@@ -31,7 +32,8 @@
 
 			// React.render(React.createElement(App), document.body);
 		</script>	
-
+		
+		<!--  //////  PART II  /////// -->
 		<!-- REACT EXAMPLE USING JSX -->
 		<!-- If you try to return without the parentheses this will trhow an error because otherwise it's trying to return nothing. To fix it the root element (<div> in this case) must be at the same line of the return statement -->
 		<script type="text/jsx">
@@ -63,38 +65,66 @@
 
 			// React.render(React.createElement(App), document.body);
 		</script>
+		
+		<!--   /////// PART III /////// -->
 		<!-- Setting the property at the render and displaying -->
 		<script type="text/jsx">
-			var App = React.createClass({
-				// We can define default properties too (this will be overrided if the properties are deifned in the render function )
-				getDefaultProps: function(){
-					return {
-						txt: "I'm been overrided",
-						cat: 0
-					}
-				},
-				// We can specify the type of the properties using the propTypes
-				propTypes: {
-					// Define the property as a string
-					txt: React.PropTypes.string,
-					// Define the property as a number and Required
-					cat: React.PropTypes.number.isRequired
-				},
-				render: function(){
-					var txt = this.props.txt;
+			// var App = React.createClass({
+			// 	// We can define default properties too (this will be overrided if the properties are deifned in the render function )
+			// 	getDefaultProps: function(){
+			// 		return {
+			// 			txt: "I'm been overrided",
+			// 			cat: 0
+			// 		}
+			// 	},
+			// 	// We can specify the type of the properties using the propTypes
+			// 	propTypes: {
+			// 		// Define the property as a string
+			// 		txt: React.PropTypes.string,
+			// 		// Define the property as a number and Required
+			// 		cat: React.PropTypes.number.isRequired
+			// 	},
+			// 	render: function(){
+			// 		var txt = this.props.txt;
 					
-					// If you pass comments inside the return () statement they will be rendered.
-					return (
-							<div>
-								<h1>{txt}</h1>
-							</div>
-							)
-				}
-			});
+			// 		// If you pass comments inside the return () statement they will be rendered.
+			// 		return (
+			// 				<div>
+			// 					<h1>{txt}</h1>
+			// 				</div>
+			// 				)
+			// 	}
+			// });
 
-			// To make the defualr properties appear, remove the property assignament below
-			React.render(<App cat={5} txt = "This is the value of a prop" />, document.body);
-		
+			// // To make the defualr properties appear, remove the property assignament below
+			// React.render(<App cat={5} txt = "This is the value of a prop" />, document.body);
+		</script>
+		<!--   /////// PART IV /////// -->
+		<script type="text/jsx">
+  		// var App = React.createClass({
+  			
+    //     getInitialState: function(){
+  		// 		return {
+  		// 			txt: "Im the boring default statement",
+  		// 			id: 0
+  		// 		};
+  		// 	},
+
+    //     update: function(e){
+    //       this.setState({txt: e.target.value});
+    //     },
+
+  		// 	render: function(){
+  		// 		return (
+    //         <div>
+    //           <input type="text" onChange={this.update}/>
+    //           <h1>{this.state.txt}</h1>
+    //         </div> 
+    //         )
+  		// 	}
+  		// });
+
+    //   React.render(<App/>, document.body);
 		</script>
 	</body>	
 </html>
