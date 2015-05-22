@@ -1,7 +1,7 @@
 <html>
 	<head>
-		<script src="https://fb.me/react-0.12.2.js"></script>
-		<script src="https://fb.me/JSXTransformer-0.12.2.js"></script>
+		<script src="react.js"></script>
+		<script src="JSXTransformer.js"></script>
 	</head>
 	<body>
 		<!--  ///////  PART I ///////  -->
@@ -232,6 +232,7 @@
 
 	    // React.render(<App/>, document.body);
     </script>
+     <!--   /////// PART IX /////// Component Lifecycle - Mounting Basics  -->
     <script type="text/jsx">
     var Button = React.createClass({
     	getInitialState: function(){
@@ -248,17 +249,26 @@
 
     	componentWillMount: function(){
     		console.log('Mounting');
+    		this.setState({
+    			sum: 2
+    		});
     	},
     	render: function() {
     		console.log('render');
     		return (
-    			<button onClick={this.update}>{this.state.val}</button>
+    			<button onClick={this.update}>{this.state.val * this.state.sum}</button>
     		);
     	},
 
     	componentDidMount: function(){
     		console.log('Mounted');
+    		this.inc = setInterval(this.update, 1000);
     	},
+
+    	componentWillUnmount: function(){
+    		console.log('Unmounting..');
+    		clearInterval(this.inc);
+    	}
     });
 
     var App = React.createClass({
