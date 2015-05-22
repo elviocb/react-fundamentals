@@ -234,63 +234,92 @@
     </script>
      <!--   /////// PART IX /////// Component Lifecycle - Mounting Basics  -->
     <script type="text/jsx">
-    var Button = React.createClass({
-    	getInitialState: function(){
-    		return {
-    			val: 0
+	    // var Button = React.createClass({
+	    // 	getInitialState: function(){
+	    // 		return {
+	    // 			val: 0
+	    // 		}
+	    // 	},
+
+	    // 	update: function(){
+	    // 		this.setState({
+	    // 			val: this.state.val + 1
+	    // 		})
+	    // 	},
+
+	    // 	componentWillMount: function(){
+	    // 		console.log('Mounting');
+	    // 		this.setState({
+	    // 			sum: 2
+	    // 		});
+	    // 	},
+	    // 	render: function() {
+	    // 		console.log('render');
+	    // 		return (
+	    // 			<button onClick={this.update}>{this.state.val * this.state.sum}</button>
+	    // 		);
+	    // 	},
+
+	    // 	componentDidMount: function(){
+	    // 		console.log('Mounted');
+	    // 		this.inc = setInterval(this.update, 1000);
+	    // 	},
+
+	    // 	componentWillUnmount: function(){
+	    // 		console.log('Unmounting..');
+	    // 		clearInterval(this.inc);
+	    // 	}
+	    // });
+
+	    // var App = React.createClass({
+	    // 	mount: function(){
+	    // 		React.render(<Button/>, document.getElementById('app'))
+	    // 	},
+	    // 	unmount: function(){
+	    // 		React.unmountComponentAtNode(document.getElementById('app'))
+	    // 	},
+	    // 	render: function() {
+	    // 		return (
+	    // 			<div>
+	    // 				<button onClick={this.mount}>Mount</button>
+	    // 				<button onClick={this.unmount}>Unmount</button>
+	    // 				<div id="app"></div>	
+	    // 			</div>
+	    // 		);
+	    // 	}
+	    // });
+
+	    // React.render(<App/>, document.body);
+
+    </script>
+    <!--   /////// PART X /////// Component Lifecycle - Updating  -->
+    <script type="text/jsx">
+    	var Button = React.createClass({
+    		componentWillReceiveProps: function(nextProps){
+    			console.log("componentWillReceiveProps", "\n\tnextProps:", nextProps);
+    			this.setState({
+    				inc: nextProps.val > this.props.val
+    			});
+    		},
+    		shouldComponentUpdate: function(nextProps, nextState){
+    			console.log("shouldComponentUpdate",  "\n\tnextProps:", nextProps, "\n\tnextState:", nextState);
+    			return nextProps.val % 5 === 0
+    		},
+    		update: function(){
+    			this.setProps({
+    				val: this.props.val + 1
+    			});
+    		},
+    		render: function() {
+    			return (
+    				<button onClick={this.update}>{this.props.val}</button>
+    			);
+    		},
+    		componentDidUpdate: function(prevProps, prevState){
+    			console.log("componentDidUpdate",  "\n\t prevProps:", prevProps, "\n\t prevState:", prevState);
     		}
-    	},
-
-    	update: function(){
-    		this.setState({
-    			val: this.state.val + 1
-    		})
-    	},
-
-    	componentWillMount: function(){
-    		console.log('Mounting');
-    		this.setState({
-    			sum: 2
-    		});
-    	},
-    	render: function() {
-    		console.log('render');
-    		return (
-    			<button onClick={this.update}>{this.state.val * this.state.sum}</button>
-    		);
-    	},
-
-    	componentDidMount: function(){
-    		console.log('Mounted');
-    		this.inc = setInterval(this.update, 1000);
-    	},
-
-    	componentWillUnmount: function(){
-    		console.log('Unmounting..');
-    		clearInterval(this.inc);
-    	}
-    });
-
-    var App = React.createClass({
-    	mount: function(){
-    		React.render(<Button/>, document.getElementById('app'))
-    	},
-    	unmount: function(){
-    		React.unmountComponentAtNode(document.getElementById('app'))
-    	},
-    	render: function() {
-    		return (
-    			<div>
-    				<button onClick={this.mount}>Mount</button>
-    				<button onClick={this.unmount}>Unmount</button>
-    				<div id="app"></div>	
-    			</div>
-    		);
-    	}
-    });
-
-    React.render(<App/>, document.body);
-
+    	});
+    	React.render(<Button val={0}/>, document.body);
     </script>
 	</body>	
 </html>
