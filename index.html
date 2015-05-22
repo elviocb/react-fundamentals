@@ -294,32 +294,88 @@
     </script>
     <!--   /////// PART X /////// Component Lifecycle - Updating  -->
     <script type="text/jsx">
-    	var Button = React.createClass({
-    		componentWillReceiveProps: function(nextProps){
-    			console.log("componentWillReceiveProps", "\n\tnextProps:", nextProps);
+    	// var Button = React.createClass({
+    	// 	componentWillReceiveProps: function(nextProps){
+    	// 		console.log("componentWillReceiveProps", "\n\tnextProps:", nextProps);
+    	// 		this.setState({
+    	// 			inc: nextProps.val > this.props.val
+    	// 		});
+    	// 	},
+    	// 	shouldComponentUpdate: function(nextProps, nextState){
+    	// 		console.log("shouldComponentUpdate",  "\n\tnextProps:", nextProps, "\n\tnextState:", nextState);
+    	// 		return nextProps.val % 5 === 0
+    	// 	},
+    	// 	update: function(){
+    	// 		this.setProps({
+    	// 			val: this.props.val + 1
+    	// 		});
+    	// 	},
+    	// 	render: function() {
+    	// 		return (
+    	// 			<button onClick={this.update}>{this.props.val}</button>
+    	// 		);
+    	// 	},
+    	// 	componentDidUpdate: function(prevProps, prevState){
+    	// 		console.log("componentDidUpdate",  "\n\t prevProps:", prevProps, "\n\t prevState:", prevState);
+    	// 	}
+    	// });
+    	// React.render(<Button val={0}/>, document.body);
+    </script>
+    <!--   /////// PART XI /////// Mixins  -->
+    <script type="text/jsx">
+    	
+    	var ReactMixin = {
+    		getInitialState: function(){
+    			return {
+    				count: 0
+    			}
+    		},
+    		componentWillMount: function(){
+    			console.log("Mounting..");
+    		},
+    		componentDidMount: function(){
+    			console.log("Mounted..");
+    		},
+    		increaseCount: function(){
     			this.setState({
-    				inc: nextProps.val > this.props.val
-    			});
-    		},
-    		shouldComponentUpdate: function(nextProps, nextState){
-    			console.log("shouldComponentUpdate",  "\n\tnextProps:", nextProps, "\n\tnextState:", nextState);
-    			return nextProps.val % 5 === 0
-    		},
-    		update: function(){
-    			this.setProps({
-    				val: this.props.val + 1
-    			});
+    				count: this.state.count + 1
+    			})
+    		}
+    	}
+
+    	var App = React.createClass({
+    		render: function() {
+    			return (
+    				<div>
+	    				<Button txt="Button"/>
+	    				<Label txt="Im a label"/>
+    				</div>
+    			);
+    		}
+    	});
+
+    	var Button = React.createClass({
+    		mixins: [ReactMixin],
+    		render: function() {
+    			return (
+    				<button onClick={this.increaseCount}>{this.props.txt} - {this.state.count}</button>
+    			);
+    		}
+    	});
+
+    	var Label = React.createClass({
+    		mixins: [ReactMixin],
+    		componentWillMount: function(){
+    			setInterval(this.increaseCount, 500)
     		},
     		render: function() {
     			return (
-    				<button onClick={this.update}>{this.props.val}</button>
+    				<label>{this.props.txt} - {this.state.count}</label>
     			);
-    		},
-    		componentDidUpdate: function(prevProps, prevState){
-    			console.log("componentDidUpdate",  "\n\t prevProps:", prevProps, "\n\t prevState:", prevState);
     		}
     	});
-    	React.render(<Button val={0}/>, document.body);
+
+    	React.render(<App/>, document.body);
     </script>
 	</body>	
 </html>
