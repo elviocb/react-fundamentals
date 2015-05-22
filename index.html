@@ -379,58 +379,96 @@
     </script>
     <!--   /////// PART XII /////// Composable Components  -->
     <script type="text/jsx">
-    	var App = React.createClass({
+    	// var App = React.createClass({
+    	// 	getInitialState: function(){
+    	// 		return {red: 0}
+    	// 	},
+    	// 	update: function(){
+    	// 		this.setState({
+    	// 			red: React.findDOMNode(this.refs.red.refs.inp).value
+    	// 		});
+    	// 	},
+    	// 	render: function() {
+    	// 		return (
+    	// 			<div>
+    	// 				<NumInput ref="red" update={this.update}/>
+    	// 				<label>{this.state.red}</label>
+    	// 			</div>
+    	// 		);
+    	// 	}
+    	// });
+
+    	// var NumInput = React.createClass({
+    	// 	propTypes: {
+    	// 		min: React.PropTypes.number,
+    	// 		max: React.PropTypes.number,
+    	// 		step: React.PropTypes.number,
+    	// 		val: React.PropTypes.number,
+    	// 		label: React.PropTypes.string,
+    	// 		update: React.PropTypes.func.isRequired,
+    	// 		type: React.PropTypes.oneOf(["number", "string"])
+    	// 	},
+    	// 	getDefaultProps: function(){
+    	// 		return {
+    	// 			min: 0,
+    	// 			max: 255,
+    	// 			step: 1,
+    	// 			label: "",
+    	// 			type: "number"
+    	// 		}
+    	// 	},
+    	// 	render: function() {
+    	// 		return (
+    	// 			<div>
+	    // 				<input 
+	    // 					ref="inp"
+	    // 					type={this.props.type}
+	    // 					min={this.props.min}
+	    // 					max={this.props.max}
+	    // 					onChange={this.props.update} />
+	    // 			</div>
+    	// 		);
+    	// 	}
+    	// });
+    	// React.render(<App/>, document.body);
+    </script>
+    <!--   /////// PART XIII /////// Dynamically Generated Components -->
+    <script type="text/jsx">
+    	var PersonTable = React.createClass({
     		getInitialState: function(){
-    			return {red: 0}
-    		},
-    		update: function(){
-    			this.setState({
-    				red: React.findDOMNode(this.refs.red.refs.inp).value
-    			});
+    			return {
+    				data: [
+    					{id: 001, fname: "Elvio", lname: "Cavalcante"},
+    					{id: 002, fname: "David", lname: "Valestra"},
+    					{id: 003, fname: "Bryan", lname: "Jhaninson"},
+    					{id: 004, fname: "Kir", lname: "Mushmamed"}
+    				]
+    			}
     		},
     		render: function() {
+    			
+    			var rows = this.state.data.map(function(person, i){
+    				return <PersonRow data={person} key={i}/>
+    			});
+
     			return (
-    				<div>
-    					<NumInput ref="red" update={this.update}/>
-    					<label>{this.state.red}</label>
-    				</div>
+    				<table>{rows}</table>
     			);
     		}
     	});
 
-    	var NumInput = React.createClass({
-    		propTypes: {
-    			min: React.PropTypes.number,
-    			max: React.PropTypes.number,
-    			step: React.PropTypes.number,
-    			val: React.PropTypes.number,
-    			label: React.PropTypes.string,
-    			update: React.PropTypes.func.isRequired,
-    			type: React.PropTypes.oneOf(["number", "string"])
-    		},
-    		getDefaultProps: function(){
-    			return {
-    				min: 0,
-    				max: 255,
-    				step: 1,
-    				label: "",
-    				type: "number"
-    			}
-    		},
+    	var PersonRow = React.createClass({
     		render: function() {
     			return (
-    				<div>
-	    				<input 
-	    					ref="inp"
-	    					type={this.props.type}
-	    					min={this.props.min}
-	    					max={this.props.max}
-	    					onChange={this.props.update} />
-	    			</div>
+    				<tr>
+    					<td>{this.props.data.id}</td>	
+    					<td>{this.props.data.fname}</td>	
+    					<td>{this.props.data.lname}</td>	
+    				</tr>
     			);
     		}
     	});
-    	React.render(<App/>, document.body);
+    	React.render(<PersonTable/>, document.body);
     </script>
 	</body>	
 </html>
