@@ -164,52 +164,73 @@
     </script>
     <!--   /////// PART VI /////// Using REFS-->
     <script type="text/jsx">
- 		var App = React.createClass({
- 			// Composite function
- 			getInitialState: function(){
- 				return {
- 					red: 128,
- 					green: 128,
- 					blue: 128
- 				}
- 			},
+ 		// var App = React.createClass({
+ 		// 	// Composite function
+ 		// 	getInitialState: function(){
+ 		// 		return {
+ 		// 			red: 128,
+ 		// 			green: 128,
+ 		// 			blue: 128
+ 		// 		}
+ 		// 	},
 
- 			update: function(){
- 				this.setState({
- 					red: this.refs.red.refs.sub.getDOMNode().value,
- 					green: this.refs.green.refs.sub.getDOMNode().value,
- 					blue: this.refs.blue.refs.sub.getDOMNode().value
- 				});
- 			}, 
+ 		// 	update: function(){
+ 		// 		this.setState({
+ 		// 			red: this.refs.red.refs.sub.getDOMNode().value,
+ 		// 			green: this.refs.green.refs.sub.getDOMNode().value,
+ 		// 			blue: this.refs.blue.refs.sub.getDOMNode().value
+ 		// 		});
+ 		// 	}, 
 
- 			render: function(){
- 				return (
- 						<div>
- 							<Slide ref="red" update={this.update}/>
- 							<label>{this.state.red}</label>
- 							<Slide ref="green" update={this.update}/>
- 							<label>{this.state.green}</label>
- 							<Slide ref="blue" update={this.update}/>
- 							<label>{this.state.blue}</label>
- 						</div>
- 					)
- 			}
+ 		// 	render: function(){
+ 		// 		return (
+ 		// 				<div>
+ 		// 					<Slide ref="red" update={this.update}/>
+ 		// 					<label>{this.state.red}</label>
+ 		// 					<Slide ref="green" update={this.update}/>
+ 		// 					<label>{this.state.green}</label>
+ 		// 					<Slide ref="blue" update={this.update}/>
+ 		// 					<label>{this.state.blue}</label>
+ 		// 				</div>
+ 		// 			)
+ 		// 	}
 
- 		});
+ 		// });
 
- 		var Slide = React.createClass({
- 			// Component for the composite
- 			render: function(){
- 				return (
- 						<div>
- 							<input ref="sub" type="range" min="0" max ="255" onChange={this.props.update}/>
- 						</div>
- 					)
- 			}
+ 		// var Slide = React.createClass({
+ 		// 	// Component for the composite
+ 		// 	render: function(){
+ 		// 		return (
+ 		// 				<div>
+ 		// 					<input ref="sub" type="range" min="0" max ="255" onChange={this.props.update}/>
+ 		// 				</div>
+ 		// 			)
+ 		// 	}
 
- 		});
+ 		// });
 
- 		React.render(<App/>, document.body);
+ 		// React.render(<App/>, document.body);
+    </script>
+    <!--   /////// PART VII /////// Accessing inner HTML using this.props.children  -->
+    <script type="text/jsx">
+	    var App = React.createClass({
+	    	render: function() {
+	    		console.log('App', this);
+	    		return (
+	    			<Button>React</Button>
+	    		);
+	    	}
+	    });
+
+	    var Button = React.createClass({
+	    	render: function() {
+	    		return (
+	    			<button>{this.props.children}</button>
+	    		);
+	    	}
+	    });
+
+	    React.render(<App/>, document.body);
     </script>
 	</body>	
 </html>
