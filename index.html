@@ -324,57 +324,112 @@
     <!--   /////// PART XI /////// Mixins  -->
     <script type="text/jsx">
     	
-    	var ReactMixin = {
-    		getInitialState: function(){
-    			return {
-    				count: 0
-    			}
-    		},
-    		componentWillMount: function(){
-    			console.log("Mounting..");
-    		},
-    		componentDidMount: function(){
-    			console.log("Mounted..");
-    		},
-    		increaseCount: function(){
-    			this.setState({
-    				count: this.state.count + 1
-    			})
-    		}
-    	}
+    	// var ReactMixin = {
+    	// 	getInitialState: function(){
+    	// 		return {
+    	// 			count: 0
+    	// 		}
+    	// 	},
+    	// 	componentWillMount: function(){
+    	// 		console.log("Mounting..");
+    	// 	},
+    	// 	componentDidMount: function(){
+    	// 		console.log("Mounted..");
+    	// 	},
+    	// 	increaseCount: function(){
+    	// 		this.setState({
+    	// 			count: this.state.count + 1
+    	// 		})
+    	// 	}
+    	// }
 
+    	// var App = React.createClass({
+    	// 	render: function() {
+    	// 		return (
+    	// 			<div>
+	    // 				<Button txt="Button"/>
+	    // 				<Label txt="Im a label"/>
+    	// 			</div>
+    	// 		);
+    	// 	}
+    	// });
+
+    	// var Button = React.createClass({
+    	// 	mixins: [ReactMixin],
+    	// 	render: function() {
+    	// 		return (
+    	// 			<button onClick={this.increaseCount}>{this.props.txt} - {this.state.count}</button>
+    	// 		);
+    	// 	}
+    	// });
+
+    	// var Label = React.createClass({
+    	// 	mixins: [ReactMixin],
+    	// 	componentWillMount: function(){
+    	// 		setInterval(this.increaseCount, 500)
+    	// 	},
+    	// 	render: function() {
+    	// 		return (
+    	// 			<label>{this.props.txt} - {this.state.count}</label>
+    	// 		);
+    	// 	}
+    	// });
+
+    	// React.render(<App/>, document.body);
+    </script>
+    <!--   /////// PART XII /////// Composable Components  -->
+    <script type="text/jsx">
     	var App = React.createClass({
+    		getInitialState: function(){
+    			return {red: 0}
+    		},
+    		update: function(){
+    			this.setState({
+    				red: React.findDOMNode(this.refs.red.refs.inp).value
+    			});
+    		},
     		render: function() {
     			return (
     				<div>
-	    				<Button txt="Button"/>
-	    				<Label txt="Im a label"/>
+    					<NumInput ref="red" update={this.update}/>
+    					<label>{this.state.red}</label>
     				</div>
     			);
     		}
     	});
 
-    	var Button = React.createClass({
-    		mixins: [ReactMixin],
-    		render: function() {
-    			return (
-    				<button onClick={this.increaseCount}>{this.props.txt} - {this.state.count}</button>
-    			);
-    		}
-    	});
-
-    	var Label = React.createClass({
-    		mixins: [ReactMixin],
-    		componentWillMount: function(){
-    			setInterval(this.increaseCount, 500)
+    	var NumInput = React.createClass({
+    		propTypes: {
+    			min: React.PropTypes.number,
+    			max: React.PropTypes.number,
+    			step: React.PropTypes.number,
+    			val: React.PropTypes.number,
+    			label: React.PropTypes.string,
+    			update: React.PropTypes.func.isRequired,
+    			type: React.PropTypes.oneOf(["number", "string"])
+    		},
+    		getDefaultProps: function(){
+    			return {
+    				min: 0,
+    				max: 255,
+    				step: 1,
+    				label: "",
+    				type: "number"
+    			}
     		},
     		render: function() {
     			return (
-    				<label>{this.props.txt} - {this.state.count}</label>
+    				<div>
+	    				<input 
+	    					ref="inp"
+	    					type={this.props.type}
+	    					min={this.props.min}
+	    					max={this.props.max}
+	    					onChange={this.props.update} />
+	    			</div>
     			);
     		}
     	});
-
     	React.render(<App/>, document.body);
     </script>
 	</body>	
