@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<script src="react.js"></script>
+		<script src="react-with-addons.js"></script>
 		<script src="JSXTransformer.js"></script>
 		<link rel="stylesheet" href="bootstrap.min.css">
 		<link rel="stylesheet" href="main.css">
@@ -474,44 +474,68 @@
     </script>
     <!--   /////// PART XIV /////// JSX Live Compiler -->
     <script type="text/jsx">
-    	var Transformer = React.createClass({
-    		getInitialState: function(){
-    			return {
-    				input: "",
-    				output: "",
-    				err: ""
-    			}
-    		},
-    		update: function(e){
-    			var code = e.target.value;
+    	// var Transformer = React.createClass({
+    	// 	getInitialState: function(){
+    	// 		return {
+    	// 			input: "",
+    	// 			output: "",
+    	// 			err: ""
+    	// 		}
+    	// 	},
+    	// 	update: function(e){
+    	// 		var code = e.target.value;
 
-    			try {
-    				this.setState({
-    					output: JSXTransformer.transform(code).code,
-    					err: ""
-    				});
-    			} catch (err) {
-    				console.log(err)
-    				this.setState({
-    					err: err.message
-    				});
-    			}
-    		},
-    		render: function() {
-    			return (
-    				<div>
-	    				<div className="row">
-	    					<p className="alert alert-danger">{this.state.err}</p>
-	    				</div>
-	    				<div className="row">
-	    					<textarea defaultValue={this.state.input} className="col-sm-6 input-lg" onChange={this.update}></textarea>
-	    					<pre  className="col-sm-6 input-lg">{this.state.output}</pre>
-	    				</div>
-    				</div>
-    			);
+    	// 		try {
+    	// 			this.setState({
+    	// 				output: JSXTransformer.transform(code).code,
+    	// 				err: ""
+    	// 			});
+    	// 		} catch (err) {
+    	// 			console.log(err)
+    	// 			this.setState({
+    	// 				err: err.message
+    	// 			});
+    	// 		}
+    	// 	},
+    	// 	render: function() {
+    	// 		return (
+    	// 			<div>
+	    // 				<div className="row">
+	    // 					<p className="alert alert-danger">{this.state.err}</p>
+	    // 				</div>
+	    // 				<div className="row">
+	    // 					<textarea defaultValue={this.state.input} className="col-sm-6 input-lg" onChange={this.update}></textarea>
+	    // 					<pre  className="col-sm-6 input-lg">{this.state.output}</pre>
+	    // 				</div>
+    	// 			</div>
+    	// 		);
+    	// 	}
+    	// });
+    	// React.render(<Transformer/>, document.body);
+    </script>
+    <!--   /////// PART XV /////// Addons: React Link -->
+    <script type="text/jsx">
+    var Form = React.createClass({
+    	mixins: [React.addons.LinkedStateMixin],
+    	getInitialState: function(){
+    		return {
+    			name: "",
+    			email: "" 
     		}
-    	});
-    	React.render(<Transformer/>, document.body);
+    	},
+    	render: function() {
+    		return (
+    			<form>
+    				<input valueLink={this.linkState("name")} type="text" placeholder="name"/>
+    				<label>*{this.state.name}*</label>
+    				<input valueLink={this.linkState("email")} type="text" placeholder="email"/>
+    				<label>*{this.state.email}*</label>
+    			</form>
+    		);
+    	}
+    });
+
+    React.render(<Form/>, document.body);
     </script>
 	</body>	
 </html>
