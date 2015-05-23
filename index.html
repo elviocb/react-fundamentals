@@ -2,6 +2,8 @@
 	<head>
 		<script src="react.js"></script>
 		<script src="JSXTransformer.js"></script>
+		<link rel="stylesheet" href="bootstrap.min.css">
+		<link rel="stylesheet" href="main.css">
 	</head>
 	<body>
 		<!--  ///////  PART I ///////  -->
@@ -434,41 +436,82 @@
     </script>
     <!--   /////// PART XIII /////// Dynamically Generated Components -->
     <script type="text/jsx">
-    	var PersonTable = React.createClass({
+    	// var PersonTable = React.createClass({
+    	// 	getInitialState: function(){
+    	// 		return {
+    	// 			data: [
+    	// 				{id: 001, fname: "Elvio", lname: "Cavalcante"},
+    	// 				{id: 002, fname: "David", lname: "Valestra"},
+    	// 				{id: 003, fname: "Bryan", lname: "Jhaninson"},
+    	// 				{id: 004, fname: "Kir", lname: "Mushmamed"}
+    	// 			]
+    	// 		}
+    	// 	},
+    	// 	render: function() {
+    			
+    	// 		var rows = this.state.data.map(function(person, i){
+    	// 			return <PersonRow data={person} key={i}/>
+    	// 		});
+
+    	// 		return (
+    	// 			<table>{rows}</table>
+    	// 		);
+    	// 	}
+    	// });
+
+    	// var PersonRow = React.createClass({
+    	// 	render: function() {
+    	// 		return (
+    	// 			<tr>
+    	// 				<td>{this.props.data.id}</td>	
+    	// 				<td>{this.props.data.fname}</td>	
+    	// 				<td>{this.props.data.lname}</td>	
+    	// 			</tr>
+    	// 		);
+    	// 	}
+    	// });
+    	// React.render(<PersonTable/>, document.body);
+    </script>
+    <!--   /////// PART XIV /////// JSX Live Compiler -->
+    <script type="text/jsx">
+    	var Transformer = React.createClass({
     		getInitialState: function(){
     			return {
-    				data: [
-    					{id: 001, fname: "Elvio", lname: "Cavalcante"},
-    					{id: 002, fname: "David", lname: "Valestra"},
-    					{id: 003, fname: "Bryan", lname: "Jhaninson"},
-    					{id: 004, fname: "Kir", lname: "Mushmamed"}
-    				]
+    				input: "",
+    				output: "",
+    				err: ""
+    			}
+    		},
+    		update: function(e){
+    			var code = e.target.value;
+
+    			try {
+    				this.setState({
+    					output: JSXTransformer.transform(code).code,
+    					err: ""
+    				});
+    			} catch (err) {
+    				console.log(err)
+    				this.setState({
+    					err: err.message
+    				});
     			}
     		},
     		render: function() {
-    			
-    			var rows = this.state.data.map(function(person, i){
-    				return <PersonRow data={person} key={i}/>
-    			});
-
     			return (
-    				<table>{rows}</table>
+    				<div>
+	    				<div className="row">
+	    					<p className="alert alert-danger">{this.state.err}</p>
+	    				</div>
+	    				<div className="row">
+	    					<textarea defaultValue={this.state.input} className="col-sm-6 input-lg" onChange={this.update}></textarea>
+	    					<pre  className="col-sm-6 input-lg">{this.state.output}</pre>
+	    				</div>
+    				</div>
     			);
     		}
     	});
-
-    	var PersonRow = React.createClass({
-    		render: function() {
-    			return (
-    				<tr>
-    					<td>{this.props.data.id}</td>	
-    					<td>{this.props.data.fname}</td>	
-    					<td>{this.props.data.lname}</td>	
-    				</tr>
-    			);
-    		}
-    	});
-    	React.render(<PersonTable/>, document.body);
+    	React.render(<Transformer/>, document.body);
     </script>
 	</body>	
 </html>
